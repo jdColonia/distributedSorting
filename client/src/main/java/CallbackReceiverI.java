@@ -4,7 +4,7 @@ public class CallbackReceiverI implements DistributedSorting.CallbackReceiver{
 
     @Override
     public void receiveMessage(String msg, Current current) {
-        
+        System.out.println(msg);
     }
 
     @Override
