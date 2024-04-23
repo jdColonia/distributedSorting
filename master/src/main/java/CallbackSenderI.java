@@ -23,7 +23,7 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
 
     private Map<String, CallbackReceiverPrx> clients = new HashMap<>();
     private Map<String, CallbackReceiverPrx> workers = new HashMap<>();
-    private MergeSort<ComparableString> mergeSort = new MergeSort<>();
+    private MergeSort<ComparableString> mergeSort = new MergeSort<ComparableString>();
 
     @Override
     public void initiateCallback(CallbackReceiverPrx proxy, String message, Current current) {

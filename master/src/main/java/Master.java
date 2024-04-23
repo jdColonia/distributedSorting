@@ -6,8 +6,7 @@ public class Master {
         int status = 0;
         try (Communicator communicator = Util.initialize(args,"master.cfg")) {
             ObjectAdapter adapter = communicator.createObjectAdapter("Callback.Server");         
-            CallbackSenderI callbackSender = new CallbackSenderI();
-            adapter.add(callbackSender, Util.stringToIdentity("callbackSender"));
+            adapter.add(new CallbackSenderI(), Util.stringToIdentity("callbackSender"));
             adapter.activate();
             communicator.waitForShutdown();
         } 
