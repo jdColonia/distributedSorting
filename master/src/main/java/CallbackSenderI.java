@@ -23,7 +23,7 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
 
     private Map<String, CallbackReceiverPrx> clients = new HashMap<>();
     private Map<String, CallbackReceiverPrx> workers = new HashMap<>();
-    private MergeSort<ComparableString> mergeSort = new MergeSort<ComparableString>();
+    private MergeSort<ComparableDouble> mergeSort = new MergeSort<ComparableDouble>();
 
     @Override
     public void initiateCallback(CallbackReceiverPrx proxy, String message, Current current) {
@@ -65,7 +65,7 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
         if (order.startsWith("register as worker")) {
             System.out.println("Registering worker");
             registerWorker(hostname, proxy);
-        } else if (order.startsWith("dist_sorter")) {
+        } else if (order.startsWith("sort")) {
             String[] orderArray = msg.split(":");
             String filename = orderArray[orderArray.length - 1];
             registerClient(hostname, proxy);
@@ -96,7 +96,7 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
             return;
         }
 
-        if (workers.size() <= 1) {
+        if (workers.size() == 0) {
             monolithicSort(filename, proxy);
         } else {
             int numberOfLines = getNumberOfLines(filename);
@@ -139,7 +139,7 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
     private void monolithicSort(String filename, CallbackReceiverPrx proxy) throws IOException {
         long startTime = System.currentTimeMillis();
 
-        List<ComparableString> dataList = readFile(BASE_PATH + filename);
+        List<ComparableDouble> dataList = readFile(BASE_PATH + filename);
         dataList = mergeSort.mergeSort(dataList);
 
         long endTime = System.currentTimeMillis();
@@ -151,18 +151,19 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
         saveSortedData(dataList, filename);
     }
 
-    private List<ComparableString> readFile(String filePath) throws IOException {
-        List<ComparableString> dataList = new ArrayList<>();
+    private List<ComparableDouble> readFile(String filePath) throws IOException {
+        List<ComparableDouble> dataList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                dataList.add(new ComparableString(line));
+                Double value = Double.parseDouble(line);
+                dataList.add(new ComparableDouble(value));
             }
         }
         return dataList;
     }
 
-    private void saveSortedData(List<ComparableString> result, String filename) throws IOException {
+    private void saveSortedData(List<ComparableDouble> result, String filename) throws IOException {
         File file = new File(BASE_PATH + "sorted." + filename);
 
         if (!file.exists()) {
@@ -170,7 +171,7 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
         }
 
         try (FileWriter writer = new FileWriter(file)) {
-            for (ComparableString cc : result) {
+            for (ComparableDouble cc : result) {
                 writer.write(cc.getValue() + "\n");
             }
         }

@@ -84,7 +84,7 @@ public class Client {
 
     private static void displayMenu() {
         System.out.println("========== MENU ==========");
-        System.out.println("1. Iniciar ordenamiento distribuido: dist_sorting:<filename>");
+        System.out.println("1. Iniciar ordenamiento distribuido: sort:<filename>");
         System.out.println("2. Salir: exit");
         System.out.print("Ingrese su opción: ");
     }
