@@ -19,7 +19,7 @@ import DistributedSorting.CallbackReceiverPrx;
 
 public final class CallbackSenderI implements DistributedSorting.CallbackSender {
 
-    private static final String BASE_PATH = "/home/swarch/datamining/";
+    private static final String BASE_PATH = "data/";
 
     private Map<String, CallbackReceiverPrx> clients = new HashMap<>();
     private Map<String, CallbackReceiverPrx> workers = new HashMap<>();
