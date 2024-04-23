@@ -8,8 +8,8 @@ import com.zeroc.Ice.Current;
 
 public class CallbackReceiverI implements DistributedSorting.CallbackReceiver {
 
-    private List<ComparableString> sortedList;
-    private  MergeSort<ComparableString> mergeSort = new MergeSort<ComparableString>();
+    private List<ComparableDouble> sortedList;
+    private  MergeSort<ComparableDouble> mergeSort = new MergeSort<ComparableDouble>();
 
     @Override
     public void receiveMessage(String msg, Current current) {
@@ -35,14 +35,14 @@ public class CallbackReceiverI implements DistributedSorting.CallbackReceiver {
         // Verificar si la lista de datos tiene al menos la mitad de los elementos
         if (sortedList.size() < half) {
             // Si la lista tiene menos elementos que la mitad, envia todos los datos disponibles
-            List<ComparableString> halfList = sortedList.subList(0, sortedList.size());
+            List<ComparableDouble> halfList = sortedList.subList(0, sortedList.size());
             // Limpia la lista de datos para indicar que todos los datos han sido enviados
             sortedList = new ArrayList<>();
             // Devuelve la mitad de los datos como una cadena
             return halfList.toString();
         } else {
             // Si la lista tiene más elementos que la mitad, envia la mitad de los datos disponibles
-            List<ComparableString> halfList = sortedList.subList(0, half);
+            List<ComparableDouble> halfList = sortedList.subList(0, half);
             // Actualiza la lista de datos para eliminar la mitad que ya ha sido enviada
             sortedList = sortedList.subList(half, sortedList.size());
             // Devuelve la mitad de los datos como una cadena
@@ -62,7 +62,7 @@ public class CallbackReceiverI implements DistributedSorting.CallbackReceiver {
         // Inicializa el tiempo
         long startTime = System.currentTimeMillis();
         // Inicializa una lista para almacenar las líneas leídas del archivo
-        List<ComparableString> dataList = new ArrayList<>();
+        List<ComparableDouble> dataList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             int lineNumber = 1;
@@ -71,7 +71,8 @@ public class CallbackReceiverI implements DistributedSorting.CallbackReceiver {
                 // Verifica si la línea se encuentra dentro del rango especificado
                 if (lineNumber >= from && lineNumber <= to) {
                     // Si está dentro del rango, la añadimos a la lista de datos
-                    dataList.add(new ComparableString(line));
+                    Double value = Double.parseDouble(line);
+                    dataList.add(new ComparableDouble(value));
                 }
                 // Incrementa el número de línea para la siguiente iteración
                 lineNumber++;
