@@ -1,5 +1,6 @@
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.concurrent.CompletableFuture;
 
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectAdapter;
@@ -59,6 +60,11 @@ public class Worker {
             String hostname) {
         // Registro del Worker en el servidor
         registerWorker(sender, receiver, username, hostname);
+        // Mantiene vivo al worker
+        while(true) {
+
+        }
+
     }
 
     private static void registerWorker(CallbackSenderPrx sender, CallbackReceiverPrx receiver, String username,
@@ -67,7 +73,14 @@ public class Worker {
         String message = username + "-" + hostname + "-" + "register as worker";
 
         // Envío del mensaje al servidor
-        sender.sendMessage(receiver, message);
+        asyncTask(message, sender, receiver);
+    }
+
+    public static void asyncTask(String msg, CallbackSenderPrx sender, CallbackReceiverPrx receiver) {
+        // Enviar el mensaje de forma asíncrona
+        CompletableFuture.runAsync(() -> {
+            sender.sendMessage(receiver, msg);
+        });
     }
 
 }
