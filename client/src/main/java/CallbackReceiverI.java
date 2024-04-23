@@ -4,7 +4,8 @@ public class CallbackReceiverI implements DistributedSorting.CallbackReceiver{
 
     @Override
     public void receiveMessage(String msg, Current current) {
-        System.out.println(msg);
+        // Imprimir el mensaje recibido en la consola
+        System.out.println("Message received: " + msg);
     }
 
     @Override

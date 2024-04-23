@@ -1,17 +1,6 @@
-import DistributedSorting.CallbackReceiverPrx;
 import com.zeroc.Ice.Current;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
-
-//
-// Copyright (c) ZeroC, Inc. All rights reserved.
-//
-
+import DistributedSorting.CallbackReceiverPrx;
 
 public final class CallbackSenderI implements DistributedSorting.CallbackSender {
 
@@ -32,7 +21,12 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
 
     @Override
     public void shutdown(Current current) {
-
+        System.out.println("Shutting down...");
+        try {
+            current.adapter.getCommunicator().shutdown();
+        } catch(com.zeroc.Ice.LocalException ex) {
+            ex.printStackTrace();
+        }
     }
 
 }
