@@ -30,8 +30,14 @@ public class CallbackReceiverI implements DistributedSorting.CallbackReceiver {
 
     @Override
     public String getSortedList(Current current) {
-        // Devuelve la lista ordenada
-        return sortedList.toString(); 
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < sortedList.size(); i++) {
+            sb.append(sortedList.get(i).getValue());
+            if (i < sortedList.size() - 1) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
     }
 
     private void readAndProcessFileRange(String filePath, int from, int to) {
