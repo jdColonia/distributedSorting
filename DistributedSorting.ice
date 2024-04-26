@@ -4,14 +4,11 @@ module DistributedSorting
     {
         void receiveMessage(string msg);
         void startWorker(int from, int to,string filename,string basepath);
-        string getHalfAndRemove();
-        int verifyLength();
+        string getSortedList();
     }
     interface CallbackSender
     {
-        void initiateCallback(CallbackReceiver* proxy, string message);
         void sendMessage(CallbackReceiver* proxy,string msg);
-        void makeWorker(CallbackReceiver* proxy,string msg);
         void shutdown();
     }
 }

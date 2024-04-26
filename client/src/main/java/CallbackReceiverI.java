@@ -14,13 +14,8 @@ public class CallbackReceiverI implements DistributedSorting.CallbackReceiver{
     }
 
     @Override
-    public String getHalfAndRemove(Current current) {
+    public String getSortedList(Current current) {
         return null;
-    }
-
-    @Override
-    public int verifyLength(Current current) {
-        return 0;
     }
 
 }

@@ -17,44 +17,6 @@ package DistributedSorting;
 
 public interface CallbackSenderPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default void initiateCallback(CallbackReceiverPrx proxy, String message)
-    {
-        initiateCallback(proxy, message, com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default void initiateCallback(CallbackReceiverPrx proxy, String message, java.util.Map<String, String> context)
-    {
-        _iceI_initiateCallbackAsync(proxy, message, context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> initiateCallbackAsync(CallbackReceiverPrx proxy, String message)
-    {
-        return _iceI_initiateCallbackAsync(proxy, message, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> initiateCallbackAsync(CallbackReceiverPrx proxy, String message, java.util.Map<String, String> context)
-    {
-        return _iceI_initiateCallbackAsync(proxy, message, context, false);
-    }
-
-    /**
-     * @hidden
-     * @param iceP_proxy -
-     * @param iceP_message -
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_initiateCallbackAsync(CallbackReceiverPrx iceP_proxy, String iceP_message, java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "initiateCallback", null, sync, null);
-        f.invoke(false, context, null, ostr -> {
-                     ostr.writeProxy(iceP_proxy);
-                     ostr.writeString(iceP_message);
-                 }, null);
-        return f;
-    }
-
     default void sendMessage(CallbackReceiverPrx proxy, String msg)
     {
         sendMessage(proxy, msg, com.zeroc.Ice.ObjectPrx.noExplicitContext);
@@ -86,44 +48,6 @@ public interface CallbackSenderPrx extends com.zeroc.Ice.ObjectPrx
     default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_sendMessageAsync(CallbackReceiverPrx iceP_proxy, String iceP_msg, java.util.Map<String, String> context, boolean sync)
     {
         com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "sendMessage", null, sync, null);
-        f.invoke(false, context, null, ostr -> {
-                     ostr.writeProxy(iceP_proxy);
-                     ostr.writeString(iceP_msg);
-                 }, null);
-        return f;
-    }
-
-    default void makeWorker(CallbackReceiverPrx proxy, String msg)
-    {
-        makeWorker(proxy, msg, com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default void makeWorker(CallbackReceiverPrx proxy, String msg, java.util.Map<String, String> context)
-    {
-        _iceI_makeWorkerAsync(proxy, msg, context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> makeWorkerAsync(CallbackReceiverPrx proxy, String msg)
-    {
-        return _iceI_makeWorkerAsync(proxy, msg, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> makeWorkerAsync(CallbackReceiverPrx proxy, String msg, java.util.Map<String, String> context)
-    {
-        return _iceI_makeWorkerAsync(proxy, msg, context, false);
-    }
-
-    /**
-     * @hidden
-     * @param iceP_proxy -
-     * @param iceP_msg -
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_makeWorkerAsync(CallbackReceiverPrx iceP_proxy, String iceP_msg, java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "makeWorker", null, sync, null);
         f.invoke(false, context, null, ostr -> {
                      ostr.writeProxy(iceP_proxy);
                      ostr.writeString(iceP_msg);

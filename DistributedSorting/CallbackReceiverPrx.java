@@ -95,24 +95,24 @@ public interface CallbackReceiverPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
-    default String getHalfAndRemove()
+    default String getSortedList()
     {
-        return getHalfAndRemove(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return getSortedList(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default String getHalfAndRemove(java.util.Map<String, String> context)
+    default String getSortedList(java.util.Map<String, String> context)
     {
-        return _iceI_getHalfAndRemoveAsync(context, true).waitForResponse();
+        return _iceI_getSortedListAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.String> getHalfAndRemoveAsync()
+    default java.util.concurrent.CompletableFuture<java.lang.String> getSortedListAsync()
     {
-        return _iceI_getHalfAndRemoveAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_getSortedListAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.String> getHalfAndRemoveAsync(java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> getSortedListAsync(java.util.Map<String, String> context)
     {
-        return _iceI_getHalfAndRemoveAsync(context, false);
+        return _iceI_getSortedListAsync(context, false);
     }
 
     /**
@@ -121,49 +121,12 @@ public interface CallbackReceiverPrx extends com.zeroc.Ice.ObjectPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_getHalfAndRemoveAsync(java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_getSortedListAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getHalfAndRemove", null, sync, null);
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getSortedList", null, sync, null);
         f.invoke(true, context, null, null, istr -> {
                      String ret;
                      ret = istr.readString();
-                     return ret;
-                 });
-        return f;
-    }
-
-    default int verifyLength()
-    {
-        return verifyLength(com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default int verifyLength(java.util.Map<String, String> context)
-    {
-        return _iceI_verifyLengthAsync(context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> verifyLengthAsync()
-    {
-        return _iceI_verifyLengthAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> verifyLengthAsync(java.util.Map<String, String> context)
-    {
-        return _iceI_verifyLengthAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_verifyLengthAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "verifyLength", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     int ret;
-                     ret = istr.readInt();
                      return ret;
                  });
         return f;

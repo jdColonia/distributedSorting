@@ -29,17 +29,9 @@ public class CallbackReceiverI implements DistributedSorting.CallbackReceiver {
     }
 
     @Override
-    public String getHalfAndRemove(Current current) {
+    public String getSortedList(Current current) {
         // Devuelve la lista ordenada
         return sortedList.toString(); 
-    }
-
-    @Override
-    public int verifyLength(Current current) {
-        // Imprime la longitud actual de los datos en la consola
-        System.out.println("Length verification in the Worker: " + sortedList.size());
-        // Devuelve la longitud actual de los datos
-        return sortedList.size();
     }
 
     private void readAndProcessFileRange(String filePath, int from, int to) {

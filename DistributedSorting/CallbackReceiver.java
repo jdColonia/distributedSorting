@@ -21,9 +21,7 @@ public interface CallbackReceiver extends com.zeroc.Ice.Object
 
     void startWorker(int from, int to, String filename, String basepath, com.zeroc.Ice.Current current);
 
-    String getHalfAndRemove(com.zeroc.Ice.Current current);
-
-    int verifyLength(com.zeroc.Ice.Current current);
+    String getSortedList(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -98,31 +96,13 @@ public interface CallbackReceiver extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getHalfAndRemove(CallbackReceiver obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getSortedList(CallbackReceiver obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
-        String ret = obj.getHalfAndRemove(current);
+        String ret = obj.getSortedList(current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
         ostr.writeString(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_verifyLength(CallbackReceiver obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        int ret = obj.verifyLength(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeInt(ret);
         inS.endWriteParams(ostr);
         return inS.setResult(ostr);
     }
@@ -130,14 +110,13 @@ public interface CallbackReceiver extends com.zeroc.Ice.Object
     /** @hidden */
     final static String[] _iceOps =
     {
-        "getHalfAndRemove",
+        "getSortedList",
         "ice_id",
         "ice_ids",
         "ice_isA",
         "ice_ping",
         "receiveMessage",
-        "startWorker",
-        "verifyLength"
+        "startWorker"
     };
 
     /** @hidden */
@@ -155,7 +134,7 @@ public interface CallbackReceiver extends com.zeroc.Ice.Object
         {
             case 0:
             {
-                return _iceD_getHalfAndRemove(this, in, current);
+                return _iceD_getSortedList(this, in, current);
             }
             case 1:
             {
@@ -180,10 +159,6 @@ public interface CallbackReceiver extends com.zeroc.Ice.Object
             case 6:
             {
                 return _iceD_startWorker(this, in, current);
-            }
-            case 7:
-            {
-                return _iceD_verifyLength(this, in, current);
             }
         }
 

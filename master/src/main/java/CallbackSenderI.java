@@ -27,11 +27,6 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
     private MergeSort<ComparableDouble> mergeSort = new MergeSort<ComparableDouble>();
 
     @Override
-    public void initiateCallback(CallbackReceiverPrx proxy, String message, Current current) {
-
-    }
-
-    @Override
     public void sendMessage(CallbackReceiverPrx proxy, String msg, Current current) {
         System.out.println("Initiating callback");
 
@@ -41,11 +36,6 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
         } catch (LocalException | IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    @Override
-    public void makeWorker(CallbackReceiverPrx proxy, String msg, Current current) {
-
     }
 
     @Override

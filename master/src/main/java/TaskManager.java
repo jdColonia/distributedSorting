@@ -52,7 +52,7 @@ public class TaskManager implements Runnable {
         List<ComparableDouble> result = new ArrayList<>();
         StringBuilder resultSB = new StringBuilder();
         for (Map.Entry<String, CallbackReceiverPrx> entry : workers.entrySet()) {
-            String elements = entry.getValue().getHalfAndRemove();
+            String elements = entry.getValue().getSortedList();
             if (!elements.isEmpty()) {
                 String[] dataArray = elements.substring(1, elements.length() - 1).split(", ");
                 List<ComparableDouble> subList = new ArrayList<>();

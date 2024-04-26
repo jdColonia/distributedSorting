@@ -17,11 +17,7 @@ package DistributedSorting;
 
 public interface CallbackSender extends com.zeroc.Ice.Object
 {
-    void initiateCallback(CallbackReceiverPrx proxy, String message, com.zeroc.Ice.Current current);
-
     void sendMessage(CallbackReceiverPrx proxy, String msg, com.zeroc.Ice.Current current);
-
-    void makeWorker(CallbackReceiverPrx proxy, String msg, com.zeroc.Ice.Current current);
 
     void shutdown(com.zeroc.Ice.Current current);
 
@@ -56,26 +52,6 @@ public interface CallbackSender extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_initiateCallback(CallbackSender obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        CallbackReceiverPrx iceP_proxy;
-        String iceP_message;
-        iceP_proxy = CallbackReceiverPrx.uncheckedCast(istr.readProxy());
-        iceP_message = istr.readString();
-        inS.endReadParams();
-        obj.initiateCallback(iceP_proxy, iceP_message, current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_sendMessage(CallbackSender obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
@@ -86,26 +62,6 @@ public interface CallbackSender extends com.zeroc.Ice.Object
         iceP_msg = istr.readString();
         inS.endReadParams();
         obj.sendMessage(iceP_proxy, iceP_msg, current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_makeWorker(CallbackSender obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        CallbackReceiverPrx iceP_proxy;
-        String iceP_msg;
-        iceP_proxy = CallbackReceiverPrx.uncheckedCast(istr.readProxy());
-        iceP_msg = istr.readString();
-        inS.endReadParams();
-        obj.makeWorker(iceP_proxy, iceP_msg, current);
         return inS.setResult(inS.writeEmptyParams());
     }
 
@@ -131,8 +87,6 @@ public interface CallbackSender extends com.zeroc.Ice.Object
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "initiateCallback",
-        "makeWorker",
         "sendMessage",
         "shutdown"
     };
@@ -168,17 +122,9 @@ public interface CallbackSender extends com.zeroc.Ice.Object
             }
             case 4:
             {
-                return _iceD_initiateCallback(this, in, current);
-            }
-            case 5:
-            {
-                return _iceD_makeWorker(this, in, current);
-            }
-            case 6:
-            {
                 return _iceD_sendMessage(this, in, current);
             }
-            case 7:
+            case 5:
             {
                 return _iceD_shutdown(this, in, current);
             }
