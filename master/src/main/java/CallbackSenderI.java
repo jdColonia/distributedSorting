@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
@@ -60,7 +61,8 @@ public final class CallbackSenderI implements DistributedSorting.CallbackSender 
     private String evaluateOrder(String msg, CallbackReceiverPrx proxy) throws IOException {
         String[] msgArray = msg.split("-");
         String order = msgArray[msgArray.length - 1];
-        String hostname = msgArray[msgArray.length - 2];
+        //String hostname = msgArray[msgArray.length - 2]; // Esta linea se usa cuando se ejecutan en computadores diferentes
+        String hostname = UUID.randomUUID().toString(); // Generar un UUID en lugar de tomar el hostname directamente
 
         if (order.startsWith("register as worker")) {
             System.out.println("Registering worker");

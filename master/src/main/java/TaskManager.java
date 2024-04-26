@@ -13,6 +13,7 @@ public class TaskManager implements Runnable {
     private String basePath;
     private Queue<Task> tasks = new LinkedList<>();
     private Map<String, CallbackReceiverPrx> workers;
+    private MergeSort<ComparableDouble> mergeSort = new MergeSort<ComparableDouble>();
 
     public TaskManager(CallbackReceiverPrx client, String filename, String basePath, Map<String, CallbackReceiverPrx> workers) {
         this.client = client;
@@ -48,46 +49,29 @@ public class TaskManager implements Runnable {
 
     private void handleSorting() throws IOException {
         long startTime = System.currentTimeMillis();
-        List<Container> containers = new ArrayList<>();
-        StringBuilder result = new StringBuilder();
-        boolean areAllWorkersEmpty;
-        do {
-            areAllWorkersEmpty = true;
-            for (Map.Entry<String, CallbackReceiverPrx> entry : workers.entrySet()) {
-                String elements = entry.getValue().getHalfAndRemove();
-                containers.add(new Container(entry.getValue(), elements));
-                if (entry.getValue().verifyLength() != 0) {
-                    areAllWorkersEmpty = false;
-                    break;
+        List<ComparableDouble> result = new ArrayList<>();
+        StringBuilder resultSB = new StringBuilder();
+        for (Map.Entry<String, CallbackReceiverPrx> entry : workers.entrySet()) {
+            String elements = entry.getValue().getHalfAndRemove();
+            if (!elements.isEmpty()) {
+                String[] dataArray = elements.substring(1, elements.length() - 1).split(", ");
+                List<ComparableDouble> subList = new ArrayList<>();
+                for (String data : dataArray) {
+                    subList.add(new ComparableDouble(Double.parseDouble(data)));
                 }
+                result.addAll(subList);
             }
-            PriorityQueue<Pair<String, Container>> priorityQueue = new PriorityQueue<>(Comparator.comparing(Pair::getFirst));
-            for (Container container : containers) {
-                if (!container.getQueue().isEmpty()) {
-                    String elementToAdd = container.getQueue().poll();
-                    elementToAdd = elementToAdd.trim();
-                    elementToAdd = elementToAdd.replaceAll("\\s+", "");
-                    priorityQueue.add(new Pair<>(elementToAdd, container));
-                }
-            }
-            while (!priorityQueue.isEmpty()) {
-                Pair<String, Container> pair = priorityQueue.poll();
-                Container container = pair.getSecond();
-                String elementToSave = pair.getFirst();
-                result.append(elementToSave).append("\n");
-                if (!container.getQueue().isEmpty()) {
-                    String element = container.getQueue().poll();
-                    priorityQueue.add(new Pair<>(element, container));
-                }
-            }
-            containers.clear();
-        } while (!areAllWorkersEmpty);
+        }
+        result = mergeSort.mergeSort(result);
+        for (ComparableDouble element : result) {
+            resultSB.append(element).append("\n");
+        }
+        saveSortedData(resultSB.toString());
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;
-        saveSortedData(result.toString());
         client.receiveMessage("Sorting completed for " + filename + ". Elapsed time: " + elapsedTime + " milliseconds");
-    }    
-
+    }
+    
     private void saveSortedData(String result) throws IOException {
         File file = new File(basePath + "sorted." + filename);
         if (!file.exists()) {

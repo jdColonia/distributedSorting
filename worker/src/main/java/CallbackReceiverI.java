@@ -30,24 +30,8 @@ public class CallbackReceiverI implements DistributedSorting.CallbackReceiver {
 
     @Override
     public String getHalfAndRemove(Current current) {
-        // Definir un límite arbitrario para la cantidad de datos a procesar
-        int half = 30000;
-        // Verificar si la lista de datos tiene al menos la mitad de los elementos
-        if (sortedList.size() < half) {
-            // Si la lista tiene menos elementos que la mitad, envia todos los datos disponibles
-            List<ComparableDouble> halfList = sortedList.subList(0, sortedList.size());
-            // Limpia la lista de datos para indicar que todos los datos han sido enviados
-            sortedList = new ArrayList<>();
-            // Devuelve la mitad de los datos como una cadena
-            return halfList.toString();
-        } else {
-            // Si la lista tiene más elementos que la mitad, envia la mitad de los datos disponibles
-            List<ComparableDouble> halfList = sortedList.subList(0, half);
-            // Actualiza la lista de datos para eliminar la mitad que ya ha sido enviada
-            sortedList = sortedList.subList(half, sortedList.size());
-            // Devuelve la mitad de los datos como una cadena
-            return halfList.toString();
-        }
+        // Devuelve la lista ordenada
+        return sortedList.toString(); 
     }
 
     @Override
