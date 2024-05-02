@@ -49,20 +49,20 @@ public class TaskManager implements Runnable {
 
     private void handleSorting() throws IOException {
         long startTime = System.currentTimeMillis();
-        List<ComparableDouble> result = new ArrayList<>();
+        List<List<ComparableDouble>> sortedLists = new ArrayList<>();
         StringBuilder resultSB = new StringBuilder();
         for (Map.Entry<String, CallbackReceiverPrx> entry : workers.entrySet()) {
             String elements = entry.getValue().getSortedList();
             if (!elements.isEmpty()) {
-                String[] dataArray = elements.split(", ");
                 List<ComparableDouble> subList = new ArrayList<>();
+                String[] dataArray = elements.split(", ");
                 for (String data : dataArray) {
                     subList.add(new ComparableDouble(Double.parseDouble(data)));
                 }
-                result.addAll(subList);
+                sortedLists.add(subList);
             }
         }
-        result = mergeSort.mergeSort(result);
+        List<ComparableDouble> result = mergeKSortedArrays(sortedLists);
         for (ComparableDouble element : result) {
             resultSB.append(element).append("\n");
         }
@@ -70,6 +70,29 @@ public class TaskManager implements Runnable {
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;
         client.receiveMessage("Sorting completed for " + filename + ". Elapsed time: " + elapsedTime + " milliseconds");
+    }
+
+    private List<ComparableDouble> mergeKSortedArrays(List<List<ComparableDouble>> arrays) {
+        // Utilizamos un min heap para obtener eficientemente el mínimo de todas las listas
+        PriorityQueue<ArrayContainer> minHeap = new PriorityQueue<>(Comparator.comparingDouble(a -> a.array.get(a.index).getValue()));
+        // Agregamos el primer elemento de cada lista al min heap
+        for (List<ComparableDouble> array : arrays) {
+            if (!array.isEmpty()) {
+                minHeap.offer(new ArrayContainer(array, 0));
+            }
+        }
+        List<ComparableDouble> mergedList = new ArrayList<>();
+        // Continuamos extrayendo y fusionando elementos hasta que el min heap esté vacío
+        while (!minHeap.isEmpty()) {
+            ArrayContainer container = minHeap.poll();
+            mergedList.add(container.array.get(container.index));
+            // Si quedan elementos en la lista original de donde se extrajo el mínimo,
+            // agregamos el siguiente elemento al min heap
+            if (container.index + 1 < container.array.size()) {
+                minHeap.offer(new ArrayContainer(container.array, container.index + 1));
+            }
+        }
+        return mergedList;
     }
     
     private void saveSortedData(String result) throws IOException {
