@@ -4,7 +4,7 @@ This repository contains the implementation of a distributed sorting using Zero-
 
 *Aplicación de distribucion* implementada en Java e ICE que permite a los usuarios *utilizar un algoritmo de ordenamiento de datos*.
 
-"Implementacion realizada con mediante una distribucion de tipo *MergeSort*."
+"Implementacion realizada mediante una distribucion de tipo *MergeSort*."
 
 # Integrantes:
 
@@ -22,6 +22,9 @@ This repository contains the implementation of a distributed sorting using Zero-
 - Pso 6: Tener listo el *archivo* a probar/distribuir dentro de la carpeta /data
 - Paso 6: El programa va a desplegar un menú con opciones, la *opcion uno* para usar la distribución y la *opcion dos* para poder salir, para ponerlo a prueba, se selecciona la *opcion uno* y se escribe *sort:<filename>*, reemplazando *filename* con el nombre del archivo a probar
 - Paso 7: Cuando se necesite acabar el proceso, se da a salir y se cierra  el proceso.
+
+> [!IMPORTANT]
+> La implementación puede llevarse a cabo ya sea en un único equipo utilizando distintas consolas, o desde múltiples equipos. Para que la implementación funcione correctamente, es imprescindible contar con el nombre de host del equipo. Por favor, dirígete al método `evaluateOrder` de la clase `CallbackSenderI` en el paquete `master`, y comenta la línea correspondiente a la ejecución que estés utilizando.
 
 # Informe
 [Informe - Google Colab](https://colab.research.google.com/drive/1BfUfXcEtnjCBmH0zJXnpBhkRcMadawx6?usp=sharing)
