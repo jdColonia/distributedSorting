@@ -28,3 +28,7 @@ This repository contains the implementation of a distributed sorting using Zero-
 
 # Informe
 [Informe - Google Colab](https://colab.research.google.com/drive/1BfUfXcEtnjCBmH0zJXnpBhkRcMadawx6?usp=sharing)
+
+> [!IMPORTANT]
+> Para poder observar las graficas en el informe en collab, debe de importar los archivos con los datos de las pruebas, estos se encuentran en el repositorio en la carpeta data, con los nombres "resultados.txt" y "new_resultados.txt",
+> Esta infomracion se importa en collab dandonle al simbolo de "carpeta" a la derecha en la barra lateral, luego click derecho en la seccion de archivos, se le da a "subir" y se seleccionan los dos archivos antes mencionados, una vez hecho eso y haber aceptado la subida, se podrán ejecutar las graficas sin problemas.
